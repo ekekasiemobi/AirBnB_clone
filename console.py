@@ -2,6 +2,7 @@
 
 import cmd
 from models import storage
+from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
@@ -37,6 +38,35 @@ class HBNBCommand(cmd.Cmd):
         new_object = self.classes[class_name]()
         new_object.save()
         print(new_object.id)
+
+    def do_show(self, arg):
+        """
+        Display the string representation of a class instance based on class name and id.
+        """
+        args = arg.split()
+
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+
+        class_name = args[0]
+        if class_name not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+            return
+
+        if len(args) <= 1:
+            print("** instance id missing **")
+            return
+
+        instance_id = args[1]
+        obj_key = "{}.{}".format(class_name, instance_id)
+        obj_dict = storage.all()
+
+        if obj_key in obj_dict:
+            instance_repr = str(obj_dict[obj_key])
+            print(instance_repr)
+        else:
+            print("** no instance found **")
 
 
 if __name__ == '__main__':
