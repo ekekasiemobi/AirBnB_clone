@@ -1,7 +1,13 @@
+#!/usr/bin/python3
+"""Defines the BaseModel class."""
+
 import uuid
 from datetime import datetime
+from models import storage
 
 class BaseModel:
+    """Represents the BaseModel of the AirBnB project."""
+
 
     def __init__(self, *args, **kwargs):
         """initialize an instance"""
@@ -15,12 +21,14 @@ class BaseModel:
                     value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
                 if key != '__class__':
                     setattr(self, key, value)
+                    storage.new(self)
 
     def __str__(self):
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         data = self.__dict__.copy()
@@ -28,4 +36,3 @@ class BaseModel:
         data['created_at'] = self.created_at.isoformat()
         data['updated_at'] = self.updated_at.isoformat()
         return data
-
