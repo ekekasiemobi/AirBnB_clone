@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 
 import cmd
+import json
+import sys
+import models
 from models import storage
 from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
+    __models = ["BaseModel", "User", "State",
+                "City", "Amenity", "Place", "Review"]
 
     def do_quit(self, arg):
         """Exit the program"""
@@ -23,15 +28,15 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
 
-    def create_instance(self, argument):
+    def create_instance(self, arg):
         """Instantiate a new object of BaseModel and store it in the JSON file"""
-        arguments = argument.split()
+        args = arg.split()
         if not arguments:
             print("** Missing class name **")
             return
 
-        class_name = arguments[0]
-        if class_name not in self.classes:
+        class_name = args[0]
+        if class_name not in self.__models:
             print("** Class does not exist **")
             return
 
@@ -50,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args[0]
-        if class_name not in HBNBCommand.__classes:
+        if class_name not in self.__models:
             print("** class doesn't exist **")
             return
 
@@ -68,7 +73,28 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
 
+    def do_all(self, arg):
+        """
+        Display string representations of all instances based on the class name.
+        """
+        objects_dict = models.storage.all()
+        instance_list = []
+
+        if not arg:
+            for key in objects_dict:
+               instance_list.append(str(objects_dict[key]))
+        else:
+            class_name = arg.strip()
+            if class_name in self.__models:
+                for key, value in objects_dict.items():
+                    if value.__class__.__name__ == class_name:
+                        instance_list.append(str(value))
+            else:
+                print("** class doesn't exist **")
+                return
+
+        print(instance_list)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
