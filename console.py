@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
     def create_instance(self, arg):
         """Instantiate a new object of BaseModel and store it in the JSON file"""
         args = arg.split()
-        if not arguments:
+        if not args:
             print("** Missing class name **")
             return
 
@@ -108,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
             instance_id = args[1]
             key = f"{class_name}.{instance_id}"
 
-            if class_name not in self.__classes:
+            if class_name not in self.__models:
                 print("** class doesn't exist **")
             else:
                 obj_dict = storage.all()
