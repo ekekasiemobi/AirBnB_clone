@@ -28,7 +28,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         pass
 
-    def create_instance(self, arg):
+    def do_create(self, arg):
         """Instantiate a new object of BaseModel and store it in the JSON file"""
         args = arg.split()
         if not args:
@@ -40,7 +40,7 @@ class HBNBCommand(cmd.Cmd):
             print("** Class does not exist **")
             return
 
-        new_object = self.classes[class_name]()
+        new_object = self.__models[class_name]()
         new_object.save()
         print(new_object.id)
 
@@ -118,35 +118,42 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     print("** no instance found **")
 
-    def update_instance(self, arg):
-        if not class_name:
+    def do_update(self, arg):
+        args = arg.split()
+
+        if len(args) == 0:
             print("** class name missing **")
             return
 
-        if class_name not in self.valid_classes:
+        class_name = args[0]
+        if class_name not in self.__models:
             print("** class doesn't exist **")
             return
 
-        if not instance_id:
+        if len(args) <= 1:
             print("** instance id missing **")
             return
 
-        key = class_name + "." + instance_id
-        instances = storage.all()
+        instance_id = args[1]
+        obj_key = "{}.{}".format(class_name, instance_id)
+        obj_dict = storage.all()
 
-        if key not in instances:
+        if obj_key in obj_dict:
+            instance = obj_dict[obj_key]
+        else:
             print("** no instance found **")
             return
 
-        if not attribute_name:
+        if len(args) <= 2:
             print("** attribute name missing **")
             return
 
-        if not attribute_value:
+        attribute_name = args[2]
+        if len(args) <= 3:
             print("** value missing **")
             return
 
-        instance = instances[key]
+        attribute_value = args[3]
         setattr(instance, attribute_name, attribute_value)
         instance.save()
 
