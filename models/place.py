@@ -2,7 +2,10 @@
 """Defines the Place class."""
 from models.base_model import BaseMode
 
+
 class Place(BaseModel):
+    """Represent the place class"""
+
     city_id = ""
     user_id = ""
     name = ""

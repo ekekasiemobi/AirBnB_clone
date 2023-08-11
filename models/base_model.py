@@ -5,9 +5,9 @@ import uuid
 from datetime import datetime
 import models
 
+
 class BaseModel:
     """Represents the BaseModel of the AirBnB project."""
-
 
     def __init__(self, *args, **kwargs):
         """initialize an instance"""
@@ -24,13 +24,19 @@ class BaseModel:
                     setattr(self, key, value)
 
     def __str__(self):
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        """Return the print/str representation of the BaseModel instance."""
+        clsname = self.__class__.__name__
+        return "[{}] ({}) {}".format(clsname, self.id, self.__dict__)
 
     def save(self):
+        """Update updated_at with the current datetime."""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
+        """
+        Return the dictionary of the BaseModel instance.
+        """
         data = self.__dict__.copy()
         data['__class__'] = self.__class__.__name__
         data['created_at'] = self.created_at.isoformat()
