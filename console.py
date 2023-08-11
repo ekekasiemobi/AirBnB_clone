@@ -161,6 +161,18 @@ class HBNBCommand(cmd.Cmd):
         setattr(instance, attribute_name, attribute_value)
         instance.save()
 
+    def do_count(self, arg):
+        """
+        Counts number of instances of a class
+        """
+        counter = 0
+        objects_dict = storage.all()
+        for key in objects_dict:
+            if (arg in key):
+                counter += 1
+        print(counter)
+
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
