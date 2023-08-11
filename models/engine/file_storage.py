@@ -31,8 +31,18 @@ class FileStorage:
                     cls = eval(cls_name)
                     if cls_name == "User":
                         obj = User(**value)
+                    elif cls_name == "Place":
+                        obj = Place(**value)
+                    elif cls_name == "State":
+                        obj = State(**value)
+                    elif cls_name == "City":
+                        obj = City(**value)
+                    elif cls_name == "Amenity":
+                        obj = Amenity(**value)
+                    elif cls_name == "Review":
+                        obj = Review(**value)
                     else:
-                        obj = cls(**value)
+                        continue
                     self.new(obj)
         except FileNotFoundError:
             pass
