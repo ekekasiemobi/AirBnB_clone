@@ -2,6 +2,7 @@
 
 import cmd
 import json
+from models.user import User
 import sys
 import models
 from models import storage
@@ -41,8 +42,9 @@ class HBNBCommand(cmd.Cmd):
             return
         new_object = None
 
-        if class_name == "User":
-            new_object = User()
+        if class_name in self.__models:
+            class_name = getattr(sys.modules[__name__], class_name)
+            new_object = class_name()
 
         if new_object:
             new_object.save()
@@ -160,17 +162,6 @@ class HBNBCommand(cmd.Cmd):
         attribute_value = args[3]
         setattr(instance, attribute_name, attribute_value)
         instance.save()
-
-    def do_count(self, arg):
-        """
-        Counts number of instances of a class
-        """
-        counter = 0
-        objects_dict = storage.all()
-        for key in objects_dict:
-            if (arg in key):
-                counter += 1
-        print(counter)
 
 
 
