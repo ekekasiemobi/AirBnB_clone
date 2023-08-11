@@ -33,6 +33,6 @@ class FileStorage:
                         obj = User(**value)
                     else:
                         obj = cls(**value)
-                    self.new(obj))
+                    self.new(obj)
         except FileNotFoundError:
             pass

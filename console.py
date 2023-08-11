@@ -39,10 +39,14 @@ class HBNBCommand(cmd.Cmd):
         if class_name not in self.__models:
             print("** Class does not exist **")
             return
+        new_object = None
 
-        new_object = self.__models[class_name]()
-        new_object.save()
-        print(new_object.id)
+        if class_name == "User":
+            new_object = User()
+
+        if new_object:
+            new_object.save()
+            print(new_object.id)
 
     def do_show(self, arg):
         """
