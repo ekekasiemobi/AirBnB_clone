@@ -10,6 +10,7 @@ from models.base_model import BaseModel
 from models.user import User
 from models.engine.file_storage import FileStorage
 
+
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
     my_model = BaseModel()
@@ -24,6 +25,7 @@ class TestFileStorage(unittest.TestCase):
     def test_all(self):
         """Test the all method"""
         self.assertEqual(self.storage.all(), {})
+        self.assertEqual(dict, type(models.storage.all()))
 
     def test_all_empty_storage(self):
         """ a method that test all storage functionality """
@@ -74,6 +76,11 @@ class TestFileStorage(unittest.TestCase):
             obj = all_objs[obj_id]
             self.assertIsNotNone(obj)
         self.assertTrue(os.path.isfile('file.json'))
+
+    def test_reload_with_arg(self):
+        with self.assertRaises(TypeError):
+            models.storage.reload(None)
+
 
 if __name__ == '__main__':
     unittest.main()
