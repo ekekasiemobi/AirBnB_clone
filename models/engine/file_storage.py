@@ -1,8 +1,15 @@
 #!/usr/bin/python3
 
 import json
+from datetime import datetime
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+
 
 class FileStorage:
     """Represent a storage engine.
@@ -41,6 +48,8 @@ class FileStorage:
                     if cls_name == "User":
                         obj = User(**value)
                     else:
+                        value['created_at'] = datetime.strptime(value['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                        value['updated_at'] = datetime.strptime(value['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
                         obj = cls(**value)
                     self.new(obj)
         except FileNotFoundError:
