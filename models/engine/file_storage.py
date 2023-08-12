@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""Define the FileStorage class."""
 import json
 from datetime import datetime
 from models.base_model import BaseModel

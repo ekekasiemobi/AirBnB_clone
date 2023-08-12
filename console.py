@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+"""Define the HBnB console."""
 import cmd
 import json
 from models.user import User
@@ -10,6 +10,10 @@ from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
+    """Define the HBnB command interpreter.
+    Attributes:
+        promp (str): The command prompt.
+    """
     prompt = "(hbnb) "
     __models = {
             "BaseModel",
