@@ -10,7 +10,12 @@ class BaseModel:
     """Represents the BaseModel of the AirBnB project."""
 
     def __init__(self, *args, **kwargs):
-        """initialize an instance"""
+        """initialize an instance
+
+        Args:
+            *args (any): Unused.
+            **kwargs (dict): Key/value pairs of attributes.
+        """
         self.id = str(uuid.uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
@@ -36,6 +41,9 @@ class BaseModel:
     def to_dict(self):
         """
         Return the dictionary of the BaseModel instance.
+
+        Include the key/value pair __class__ representing
+        the class name of the object.
         """
         data = self.__dict__.copy()
         data['__class__'] = self.__class__.__name__
