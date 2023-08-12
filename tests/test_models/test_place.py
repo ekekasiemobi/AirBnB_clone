@@ -3,10 +3,7 @@
 
 import unittest
 from models.place import Place
-from models import place
 from models.base_model import BaseModel
-from models import storage
-
 
 class TestPlace(unittest.TestCase):
     """tests for class Place"""
