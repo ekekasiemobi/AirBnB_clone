@@ -16,6 +16,7 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
+<<<<<<< HEAD
     """Defines the HolbertonBnB command interpreter."""
 
     prompt = '(hbnb) '
@@ -28,6 +29,27 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """EOF signal to exit the program"""
+=======
+    prompt = "(hbnb) "
+    __models = {
+            "BaseModel",
+            "User",
+            "State",
+            "City",
+            "Amenity",
+            "Place",
+            "Review"
+        }
+
+
+    def do_quit(self, arg):
+        """Quit command to exit the program."""
+        return True
+
+    def do_EOF(self, arg):
+        """EOF signal to exit the program."""
+        print("")
+>>>>>>> rkt
         return True
 
     def emptyline(self):
@@ -38,6 +60,7 @@ class HBNBCommand(cmd.Cmd):
         """Usage: create <class>
         Create a new class instance and print its id.
         """
+<<<<<<< HEAD
         args = arg.split()
         if not args:
             print("** Missing class name **")
@@ -56,6 +79,16 @@ class HBNBCommand(cmd.Cmd):
         if new_object:
             new_object.save()
             print(new_object.id)
+=======
+        argl = parse(arg)
+        if len(argl) == 0:
+            print("** class name missing **")
+        elif argl[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        else:
+            print(eval(argl[0])().id)
+            storage.save()
+>>>>>>> rkt
 
     def do_show(self, arg):
         """
@@ -66,26 +99,14 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args) == 0:
             print("** class name missing **")
-            return
-
-        class_name = args[0]
-        if class_name not in self.__models:
+        elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
-            return
-
-        if len(args) <= 1:
+        elif len(args) == 1:
             print("** instance id missing **")
-            return
-
-        instance_id = args[1]
-        obj_key = "{}.{}".format(class_name, instance_id)
-        obj_dict = storage.all()
-
-        if obj_key in obj_dict:
-            instance_repr = str(obj_dict[obj_key])
-            print(instance_repr)
-        else:
+        elif "{}.{}".format(args[0], args[1]) not in objdict:
             print("** no instance found **")
+        else:
+            print(objdict["{}.{}".format(args[0], args[1])])
 
     def do_all(self, arg):
         """Usage: all or all <class> or <class>.all()
@@ -135,11 +156,15 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
 
     def do_update(self, arg):
+<<<<<<< HEAD
         """Usage: update <class> <id> <attribute_name> <attribute_value>
          or <class>.udate(<id>, <attribute_name> <attribute_value>) or
          <class>.udate(<id>, dictionary>)
          Updates class instance of a given id by adding or updating
          a given attribute kry/value pair ordictionary."""
+=======
+        """Update an instance based on the class name and id."""
+>>>>>>> rkt
         args = arg.split()
 
         if len(args) == 0:
