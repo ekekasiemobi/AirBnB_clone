@@ -16,6 +16,12 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
+    """Defines the HolbertonBnB command interpreter.
+
+    Attribute:
+        prompt (str): The command prompt.
+    """
+
     prompt = '(hbnb) '
     __models = ["BaseModel", "User", "State",
                 "City", "Amenity", "Place", "Review"]
@@ -29,11 +35,8 @@ class HBNBCommand(cmd.Cmd):
         print()
         return True
 
-    def help_quit(self):
-        print("Quit command to exit the program")
-        print()
-
     def emptyline(self):
+        """Do nothing upon receiving an empty line."""
         pass
 
     def do_create(self, arg):
@@ -136,6 +139,11 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
 
     def do_update(self, arg):
+        """Usage: update <class> <id> <attribute_name> <attribute_value>
+         or <class>.udate(<id>, <attribute_name> <attribute_value>) or
+         <class>.udate(<id>, dictionary>)
+         Updates class instance of a given id by adding or updating
+         a given attribute kry/value pair ordictionary."""
         args = arg.split()
 
         if len(args) == 0:
