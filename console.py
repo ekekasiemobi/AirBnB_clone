@@ -7,6 +7,13 @@ import sys
 import models
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
@@ -30,7 +37,9 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Instantiate a new object of BaseModel and store it in the JSON file"""
+        """Instantiate a new object of BaseModel and
+        store it in the JSON file
+        """
         args = arg.split()
         if not args:
             print("** Missing class name **")
@@ -52,7 +61,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-        Display the string representation of a class instance based on class name and id.
+        Display the string representation of a class
+        instance based on class name and id.
         """
         args = arg.split()
 
@@ -81,14 +91,15 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """
-        Display string representations of all instances based on the class name.
+        Display string representations of all instances
+        based on the class name.
         """
         objects_dict = models.storage.all()
         instance_list = []
 
         if not arg:
             for key in objects_dict:
-               instance_list.append(str(objects_dict[key]))
+                instance_list.append(str(objects_dict[key]))
         else:
             class_name = arg.strip()
             if class_name in self.__models:
