@@ -16,23 +16,18 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """Defines the HolbertonBnB command interpreter.
-
-    Attribute:
-        prompt (str): The command prompt.
-    """
+    """Defines the HolbertonBnB command interpreter."""
 
     prompt = '(hbnb) '
     __models = ["BaseModel", "User", "State",
                 "City", "Amenity", "Place", "Review"]
 
     def do_quit(self, arg):
-        """Exit the program"""
+        """Quit command to exit the program"""
         return True
 
     def do_EOF(self, arg):
-        """Exit the program"""
-        print()
+        """EOF signal to exit the program"""
         return True
 
     def emptyline(self):
@@ -40,8 +35,8 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Instantiate a new object of BaseModel and
-        store it in the JSON file
+        """Usage: create <class>
+        Create a new class instance and print its id.
         """
         args = arg.split()
         if not args:
@@ -64,8 +59,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-        Display the string representation of a class
-        instance based on class name and id.
+        Usage: show <class> <id> or <class>.show(<id>)
+        Display the string representation of a class instance of a given id
         """
         args = arg.split()
 
@@ -93,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, arg):
-        """
+        """Usage: all or all <class> or <class>.all()
         Display string representations of all instances
         based on the class name.
         """
@@ -116,7 +111,8 @@ class HBNBCommand(cmd.Cmd):
         print(instance_list)
 
     def do_destroy(self, arg):
-        """Delete a class instance of a given id."""
+        """Usage: destroy <class> <id> or <class>.destroy(<id>)
+        Delete a class instance of a given id."""
         args = arg.split()
 
         if len(args) == 0:
