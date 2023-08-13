@@ -52,12 +52,20 @@ class TestBaseModel(unittest.TestCase):
 
     def test_instantiation_with_kwargs(self):
         """Test instantiation of BaseModel with keyword arguments."""
-        kwargs = {"id": "345", "created_at": "2023-01-01T00:00:00.000000",
-                  "updated_at": "2023-01-02T00:00:00.000000"}
-        bm = BaseModel(**kwargs)
-        self.assertEqual(bm.id, '345')
-        self.assertEqual(bm.created_at, datetime(2023, 1, 1))
-        self.assertEqual(bm.updated_at, datetime(2023, 1, 2))
+        dt = datetime.today()
+        dt_iso = dt.isoformat()
+        bm = BaseModel(id="345", created_at=dt_iso, updated_at=dt_iso)
+        self.assertEqual(bm.id, "345")
+        self.assertEqual(bm.created_at, dt)
+        self.assertEqual(bm.updated_at, dt)
+
+    def test_instantiation_with_args_and_kwargs(self):
+        dt = datetime.today()
+        dt_iso = dt.isoformat()
+        bm = BaseModel("12", id="345", created_at=dt_iso, updated_at=dt_iso)
+        self.assertEqual(bm.id, "345")
+        self.assertEqual(bm.created_at, dt)
+        self.assertEqual(bm.updated_at, dt)
 
 
 if __name__ == '__main__':
