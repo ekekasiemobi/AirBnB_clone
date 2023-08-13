@@ -2,8 +2,6 @@
 """Define the HBnB console."""
 import cmd
 import json
-from models.user import User
-import sys
 import models
 from models import storage
 from models.base_model import BaseModel
@@ -12,18 +10,18 @@ from models.base_model import BaseModel
 class HBNBCommand(cmd.Cmd):
     """Define the HBnB command interpreter.
     Attributes:
-        promp (str): The command prompt.
+        prompt (str): The command prompt.
     """
     prompt = "(hbnb) "
     __models = {
-            "BaseModel",
-            "User",
-            "State",
-            "City",
-            "Amenity",
-            "Place",
-            "Review"
-        }
+        "BaseModel",
+        "User",
+        "State",
+        "City",
+        "Amenity",
+        "Place",
+        "Review"
+    }
 
     def do_quit(self, arg):
         """Quit command to exit the program."""
@@ -40,16 +38,18 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         """Instantiate a new object of BaseModel and
-        store it in the JSON file
+        store it in the JSON file.
         """
-        argl = parse(arg)
-        if len(argl) == 0:
+        args = arg.split()
+
+        if len(args) == 0:
             print("** class name missing **")
-        elif argl[0] not in HBNBCommand.__classes:
+        elif args[0] not in HBNBCommand.__models:
             print("** class doesn't exist **")
         else:
-            print(eval(argl[0])().id)
-            storage.save()
+            new_instance = eval(args[0])()
+            new_instance.save()
+            print(new_instance.id)
 
     def do_show(self, arg):
         """
@@ -60,14 +60,18 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in HBNBCommand.__classes:
+        elif args[0] not in HBNBCommand.__models:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
-        elif "{}.{}".format(args[0], args[1]) not in objdict:
-            print("** no instance found **")
         else:
-            print(objdict["{}.{}".format(args[0], args[1])])
+            objects_dict = models.storage.all()
+            instance_key = "{}.{}".format(args[0], args[1])
+            instance = objects_dict.get(instance_key)
+            if instance:
+                print(instance)
+            else:
+                print("** no instance found **")
 
     def do_all(self, arg):
         """
@@ -98,22 +102,19 @@ class HBNBCommand(cmd.Cmd):
 
         if len(args) == 0:
             print("** class name missing **")
+        elif args[0] not in HBNBCommand.__models:
+            print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
         else:
-            class_name = args[0]
-            instance_id = args[1]
-            key = f"{class_name}.{instance_id}"
-
-            if class_name not in self.__models:
-                print("** class doesn't exist **")
+            objects_dict = models.storage.all()
+            instance_key = "{}.{}".format(args[0], args[1])
+            instance = objects_dict.get(instance_key)
+            if instance:
+                del objects_dict[instance_key]
+                models.storage.save()
             else:
-                obj_dict = storage.all()
-                if key in obj_dict:
-                    del obj_dict[key]
-                    storage.save()
-                else:
-                    print("** no instance found **")
+                print("** no instance found **")
 
     def do_update(self, arg):
         """Update an instance based on the class name and id."""
@@ -136,11 +137,11 @@ class HBNBCommand(cmd.Cmd):
         obj_key = "{}.{}".format(class_name, instance_id)
         obj_dict = storage.all()
 
-        if obj_key in obj_dict:
-            instance = obj_dict[obj_key]
-        else:
+        if obj_key not in obj_dict:
             print("** no instance found **")
             return
+
+        instance = obj_dict[obj_key]
 
         if len(args) <= 2:
             print("** attribute name missing **")
