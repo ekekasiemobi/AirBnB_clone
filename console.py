@@ -12,6 +12,7 @@ import json
 import models
 from models import storage
 from models.base_model import BaseModel
+from shlex import split
 
 
 class HBNBCommand(cmd.Cmd):
@@ -41,6 +42,29 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing upon receiving an empty line."""
         pass
+
+    def precmd(self, line):
+        """Preprocess the command line before execution."""
+        parts = line.split('.', 1)
+        if len(parts) == 2:
+            command = parts[0]
+            args = parts[1].split('(', 1)
+            cmd = args[0]
+            new_line = cmd + " " + command
+            if len(args) == 2:
+                args = args[1].split(')', 1)
+                args = args[0].split(",")
+                a_id = args[0].strip()
+                new_line = cmd + " " + command + " " + a_id
+                if len(args) > 1:
+                    others = args[1:]
+                    s = ""
+                    for c in others:
+                        s += c
+                    s = s.replace("\"", "").strip()
+                    new_line = cmd + " " + command + " " + a_id + " " + s
+            return new_line
+        return line
 
     def do_create(self, arg):
         """Instantiate a new object of BaseModel and
