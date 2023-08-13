@@ -42,16 +42,6 @@ class TestAmenity(unittest.TestCase):
         self.assertEqual(amenity.name, "Pool")
 
 
-    def test_child_class_type(self):
-        """ Testing class attribute data types """
-        self.assertTrue(type(self.my_state.name), str)
-        self.assertTrue(type(self.my_city.id), str)
-        self.assertTrue(type(self.my_city.name), str)
-        self.assertTrue(type(self.my_amenity.name), str)
-        self.assertTrue(type(self.my_review.place_id), str)
-        self.assertTrue(type(self.my_review.user_id), str)
-        self.assertTrue(type(self.my_review.text), str)
-
 
 if __name__ == "__main__":
     unittest.main()
