@@ -98,6 +98,50 @@ class TestFileStorage(unittest.TestCase):
             self.assertTrue(inst, dict)
         self.assertTrue(os.path.isfile('file.json'))
 
+    def test_count(self):
+        """Test the count method"""
+        initial_count = len(self.storage.all())
+
+        for _ in range(3):
+            bm = BaseModel()
+            self.storage.new(bm)
+
+        self.assertEqual(self.storage.count("BaseModel"), initial_count + 3)
+
+    def test_count_invalid_class(self):
+        """Test count with an invalid class name"""
+        self.assertEqual(self.storage.count("InvalidClass"), 0)
+
+    def test_count_no_instances(self):
+        """Test count with a class that has no instances"""
+        self.assertEqual(self.storage.count("User"), 0)
+
+    def test_count_multiple_classes(self):
+        """Test count for multiple classes"""
+        initial_count = len(self.storage.all())
+
+        for _ in range(2):
+            bm = BaseModel()
+            self.storage.new(bm)
+        for _ in range(4):
+            user = User()
+            self.storage.new(user)
+
+        self.assertEqual(self.storage.count("BaseModel"), initial_count + 2)
+        self.assertEqual(self.storage.count("User"), 4)
+
+    def test_count_with_existing_instances(self):
+        """Test count with existing instances"""
+        user = User()
+        self.storage.new(user)
+        user_count = self.storage.count("User")
+        self.assertEqual(user_count, 1)
+
+        bm = BaseModel()
+        self.storage.new(bm)
+        bm_count = self.storage.count("BaseModel")
+        self.assertEqual(bm_count, 1)
+
     def test_new(self):
         bm = BaseModel()
         us = User()
