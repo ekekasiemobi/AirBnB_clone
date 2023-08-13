@@ -66,6 +66,27 @@ class HBNBCommand(cmd.Cmd):
             return new_line
         return line
 
+    def do_count(self, arg):
+        """Retrieve the number of instances of a class."""
+        args = arg.split()
+
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+
+        class_name = args[0]
+        if class_name not in self.__models:
+            print("** class doesn't exist **")
+            return
+
+        count = 0
+        objects_dict = models.storage.all()
+        for key, value in objects_dict.items():
+            if value.__class__.__name__ == class_name:
+                count += 1
+
+        print(count)
+
     def do_create(self, arg):
         """Instantiate a new object of BaseModel and
         store it in the JSON file.
