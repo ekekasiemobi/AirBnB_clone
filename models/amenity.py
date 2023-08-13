@@ -4,16 +4,10 @@ from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
-    """Represent the amenities"""
-    name = ""
+    """Represent an amenity.
 
-    def to_dict(self):
-        """
-        Return a dictionary containing all keys/values of __dict__
-        and the class name in '__class__' key.
-        """
-        dictionary = self.__dict__.copy()
-        dictionary['__class__'] = self.__class__.__name__
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
-        return dictionary
+    Attributes:
+        name (str): The name of the amenity.
+    """
+
+    name = ""
