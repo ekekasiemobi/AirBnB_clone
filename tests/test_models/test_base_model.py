@@ -1,17 +1,25 @@
 #!/usr/bin/python3
+"""Defines unittests for models/base_model.py.
 
+Unittest classes:
+    TestBaseModel_instantiation
+    TestBaseModel_save
+    TestBaseModel_to_dict
+"""
 import os
 import models
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
     """Test for the BaseModel class"""
+
     def test_init(self):
         """Test the __init__ method of the BaseModel class."""
         base = BaseModel()
-        
+
         self.assertIsInstance(base, BaseModel)
         self.assertIsInstance(base.id, str)
         self.assertIsInstance(base.created_at, datetime)
@@ -44,7 +52,8 @@ class TestBaseModel(unittest.TestCase):
 
     def test_instantiation_with_kwargs(self):
         """Test instantiation of BaseModel with keyword arguments."""
-        kwargs = {"id": "345", "created_at": "2023-01-01T00:00:00.000000", "updated_at": "2023-01-02T00:00:00.000000"}
+        kwargs = {"id": "345", "created_at": "2023-01-01T00:00:00.000000",
+                  "updated_at": "2023-01-02T00:00:00.000000"}
         bm = BaseModel(**kwargs)
         self.assertEqual(bm.id, '345')
         self.assertEqual(bm.created_at, datetime(2023, 1, 1))
