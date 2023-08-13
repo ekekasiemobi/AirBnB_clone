@@ -12,6 +12,7 @@ from models.amenity import Amenity
 from models.review import Review
 import sys
 
+
 class FileStorage:
     """Represent an abstracted storage engine.
 
@@ -38,6 +39,7 @@ class FileStorage:
             objdict[key] = FileStorage.__objects[key].to_dict()
         with open(FileStorage.__file_path, "w") as f:
             json.dump(objdict, f)
+
     def reload(self):
         """deserializes the JSON file to __objects"""
         if os.path.isfile(self.__file_path):
