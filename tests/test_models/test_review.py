@@ -9,11 +9,11 @@ from models import storage
 
 class TestReview(unittest.TestCase):
     """Test cases for review class"""
-    
+
     def setUp(self):
         """Create an instance of Review before each test method"""
         self.review = Review()
-    
+
     def test_is_subclass(self):
         """Test if Review is a subclass of BaseModel"""
         self.assertIsInstance(self.review, BaseModel)
@@ -26,7 +26,7 @@ class TestReview(unittest.TestCase):
         self.assertEqual(self.review.place_id, "")
         self.assertEqual(self.review.user_id, "")
         self.assertEqual(self.review.text, "")
-    
+
     def test_place_id_attr(self):
         """Test Review has attr place_id, and it's an empty string"""
         self.assertTrue(hasattr(self.review, "place_id"))
@@ -62,6 +62,6 @@ class TestReview(unittest.TestCase):
         self.assertEqual(self.review.user_id, "466")
         self.assertEqual(self.review.text, "5 star! Beautiful home")
 
+
 if __name__ == '__main__':
     unittest.main()
-

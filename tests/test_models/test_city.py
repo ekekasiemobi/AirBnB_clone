@@ -1,8 +1,18 @@
+#!/usr/bin/python3
+"""Defines unittests for models/city.py.
+
+Unittest classes:
+    TestCity_instantiation
+    TestCity_save
+    TestCity_to_dict
+"""
 import unittest
 from models.city import City
 from models.base_model import BaseModel
 
+
 class TestCity(unittest.TestCase):
+    """Unittests for testing instantiation of the City class."""
     def test_attributes_initialization(self):
         city = City()
         self.assertEqual(city.state_id, "")
@@ -41,6 +51,7 @@ class TestCity(unittest.TestCase):
         self.assertTrue(hasattr(city, "id"))
         self.assertTrue(hasattr(city, "created_at"))
         self.assertTrue(hasattr(city, "updated_at"))
+
 
 if __name__ == '__main__':
     unittest.main()

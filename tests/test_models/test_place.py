@@ -5,6 +5,7 @@ import unittest
 from models.place import Place
 from models.base_model import BaseModel
 
+
 class TestPlace(unittest.TestCase):
     """tests for class Place"""
 
@@ -27,7 +28,7 @@ class TestPlace(unittest.TestCase):
         place = Place()
         self.assertTrue(hasattr(place, "name"))
         self.assertEqual(place.name, "")
-    
+
     def test_user_id_attr(self):
         """Test Place has attr user_id, and it's an empty string"""
         place = Place()

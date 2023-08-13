@@ -35,7 +35,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.password, "")
         self.assertEqual(user.first_name, "")
         self.assertEqual(user.last_name, "")
-    
+
     def test_user_creation(self):
         """set values for attributes"""
         user = User(email="test@example.com", password="password",
@@ -44,7 +44,6 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user.password, "password")
         self.assertEqual(user.first_name, "John")
         self.assertEqual(user.last_name, "Doe")
-
 
     def test_email_attr(self):
         """Test User has attr email, and it's an empty string"""
@@ -69,4 +68,3 @@ class TestUser(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
