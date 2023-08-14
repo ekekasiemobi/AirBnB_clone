@@ -4,8 +4,9 @@
 Unittest classes:
     TestCity_instantiation
     TestCity_save
-    TestCity_to_dict
+    TestCity__to__dict
 """
+
 import unittest
 from models.city import City
 from models.base_model import BaseModel
@@ -35,15 +36,15 @@ class TestCity(unittest.TestCase):
 
     def test_attribute_values(self):
         city = City()
-        city.state_id = "123"
-        city.name = "Nairobi"
-        self.assertEqual(city.state_id, "123")
-        self.assertEqual(city.name, "Nairobi")
+        city.state_id = "234"
+        city.name = "Nigera"
+        self.assertEqual(city.state_id, "234")
+        self.assertEqual(city.name, "Nigeria")
 
     def test_update_attribute_values(self):
         city = City()
-        city.name = "Mombasa"
-        self.assertEqual(city.name, "Mombasa")
+        city.name = "Enugu"
+        self.assertEqual(city.name, "Enugu")
 
     def test_is_subclass(self):
         city = City()
