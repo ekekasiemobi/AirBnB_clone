@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This test module defines tests for user.py"""
+"""Test defines tests for user.py"""
 
 import unittest
 from models.base_model import BaseModel
@@ -11,7 +11,7 @@ class TestUser(unittest.TestCase):
     """Test cases for User class"""
 
     def setUp(self):
-        """Create an instance of User before each test method"""
+        """Create an instance of User"""
         self.user = User()
 
     def test_is_subclass(self):
@@ -38,30 +38,30 @@ class TestUser(unittest.TestCase):
 
     def test_user_creation(self):
         """set values for attributes"""
-        user = User(email="test@example.com", password="password",
-                    first_name="John", last_name="Doe")
+        user = User(email="user@example.com", password="password",
+                    first_name="Felix", last_name="Charles")
         self.assertEqual(user.email, "test@example.com")
         self.assertEqual(user.password, "password")
-        self.assertEqual(user.first_name, "John")
-        self.assertEqual(user.last_name, "Doe")
+        self.assertEqual(user.first_name, "Felix")
+        self.assertEqual(user.last_name, "Charles")
 
     def test_email_attr(self):
-        """Test User has attr email, and it's an empty string"""
+        """Test User has attr email"""
         self.assertTrue(hasattr(self.user, "email"))
         self.assertEqual(self.user.email, "")
 
     def test_password_attr(self):
-        """Test User has attr password, and it's an empty string"""
+        """Test User has attr password"""
         self.assertTrue(hasattr(self.user, "password"))
         self.assertEqual(self.user.password, "")
 
     def test_first_name_attr(self):
-        """Test User has attr first_name, and it's an empty string"""
+        """Test User has attr first_name"""
         self.assertTrue(hasattr(self.user, "first_name"))
         self.assertEqual(self.user.first_name, "")
 
     def test_last_name_attr(self):
-        """Test User has attr last_name, and it's an empty string"""
+        """Test User has attr last_name"""
         self.assertTrue(hasattr(self.user, "last_name"))
         self.assertEqual(self.user.last_name, "")
 
