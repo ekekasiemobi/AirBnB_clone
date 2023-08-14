@@ -38,8 +38,8 @@ class TestReview(unittest.TestCase):
         self.review.user_id = "886"
         self.review.text = "3 star!"
 
-        self.assertEqual(self.review.place_id, "243")
-        self.assertEqual(self.review.user_id, "8886")
+        self.assertEqual(self.review.place_id, "234")
+        self.assertEqual(self.review.user_id, "886")
         self.assertEqual(self.review.text, "3 star!")
 
     def test_user_id_attr(self):

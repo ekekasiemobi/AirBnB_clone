@@ -37,7 +37,7 @@ class TestCity(unittest.TestCase):
     def test_attribute_values(self):
         city = City()
         city.state_id = "234"
-        city.name = "Nigera"
+        city.name = "Nigeria"
         self.assertEqual(city.state_id, "234")
         self.assertEqual(city.name, "Nigeria")
 

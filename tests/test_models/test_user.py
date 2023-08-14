@@ -40,7 +40,7 @@ class TestUser(unittest.TestCase):
         """set values for attributes"""
         user = User(email="user@example.com", password="password",
                     first_name="Felix", last_name="Charles")
-        self.assertEqual(user.email, "test@example.com")
+        self.assertEqual(user.email, "user@example.com")
         self.assertEqual(user.password, "password")
         self.assertEqual(user.first_name, "Felix")
         self.assertEqual(user.last_name, "Charles")
