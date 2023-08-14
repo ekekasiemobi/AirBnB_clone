@@ -60,6 +60,51 @@ class TestFileStorage(unittest.TestCase):
             key = "User.{}".format(user.id)
             self.assertIn(key, data)
 
+    def test_save_method(self):
+        user = User()
+        self.storage.new(user)
+        self.storage.save()
+        with open("file.json", "r") as f:
+            data = json.load(f)
+            key = "User." + user.id
+            self.assertIn(key, data)
+            self.assertEqual(data[key], user.to_dict())
+
+    def test_reload_method(self):
+        user = User()
+        self.storage.new(user)
+        self.storage.save()
+        new_storage = FileStorage()
+        new_storage.reload()
+        key = "User." + user.id
+        self.assertIn(key, new_storage.all())
+        self.assertEqual(new_storage.all()[key], user)
+
+    def test_data_integrity(self):
+        user = User()
+        user.name = "Alice"
+        user.email = "alice@example.com"
+        self.storage.new(user)
+        self.storage.save()
+        new_storage = FileStorage()
+        new_storage.reload()
+        reloaded_user = new_storage.all()["User." + user.id]
+        self.assertEqual(user.name, reloaded_user.name)
+        self.assertEqual(user.email, reloaded_user.email)
+
+    def test_incorrect_file_path(self):
+        original_path = FileStorage.__file_path
+        FileStorage.__file_path = "nonexistent.json"
+        new_storage = FileStorage()
+        new_storage.reload()
+        self.assertEqual(len(new_storage.all()), 0)
+        FileStorage.__file_path = original_path
+
+    def test_all_method(self):
+        user = User()
+        self.storage.new(user)
+        self.assertEqual(self.storage.all(), {"User." + user.id: user})
+
     def test_reload(self):
         """Test the reload method"""
         user = User()
@@ -97,6 +142,12 @@ class TestFileStorage(unittest.TestCase):
             self.assertIsNotNone(obj)
             self.assertTrue(inst, dict)
         self.assertTrue(os.path.isfile('file.json'))
+
+    def test_new_method(self):
+        user = User()
+        self.storage.new(user)
+        self.assertIn("User." + user.id, self.storage.all().keys())
+        self.assertEqual(user, self.storage.all()["User." + user.id])
 
     def test_new(self):
         bm = BaseModel()
