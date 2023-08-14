@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This test module defines tests for amenity.py"""
+"""Test defines tests for amenity.py"""
 
 import unittest
 from models.state import State
@@ -30,22 +30,22 @@ class TestAmenity(unittest.TestCase):
         self.assertIsInstance(self.state.name, str)
 
     def test_name_attr(self):
-        """Test that State has attribute name, and it's as an empty string"""
+        """Test that State has attribute name"""
         state = State()
         self.assertTrue(hasattr(state, "name"))
         self.assertEqual(state.name, "")
 
     def test_attribute_values(self):
         """test if the values are set correctly"""
-        self.state.name = "Abuja"
+        self.state.name = "Enugu"
 
-        self.assertEqual(self.state.name, "Abuja")
+        self.assertEqual(self.state.name, "Enugu")
 
     def test_update_attribute_values(self):
         """test if values update correctly"""
-        self.state.name = "Nairobi"
+        self.state.name = "Nigeria"
 
-        self.assertEqual(self.state.name, "Nairobi")
+        self.assertEqual(self.state.name, "Nigeria")
 
 
 if __name__ == '__main__':
