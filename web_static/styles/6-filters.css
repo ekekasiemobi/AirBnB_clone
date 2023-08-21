@@ -61,22 +61,24 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #f9f9f9;
+    background-color: #FAFAFA;
     border: 1px solid #ccc;
     /* padding: 5px; */
     list-style-type: none;
     width: 84%;
+    z-index: 999;
 }
 .amenities .popover {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #f9f9f9;
+    background-color: #FAFAFA;
     border: 1px solid #ccc;
     /* padding: 5px; */
     list-style-type: none;
     width: 40%;
+    z-index: 999;
 }
 
 .filters > div:hover .popover {
